@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './LocationPin';
 
@@ -8,10 +8,8 @@ function App() {
 
   const [location,setLocation]=useState('')
   const [loadedLocation,setLoadedLocation]=useState('');
-  const [lat,setLat]=useState(0.00)
-  const [long,setLong]=useState(0.00)
   const [places,setPlaces]=useState([])
-  const [error,setError]=useState("");
+  // const [error,setError]=useState("");
   var inputLocation=""
   
   const commomCity=["Lucknow",
@@ -30,8 +28,8 @@ function App() {
   {
     var urltoCoordinates = "https://api.opentripmap.com/0.1/en/places/geoname?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&name="+city;
     var lattitude=0,longitude=0;
-    fetch(urltoCoordinates).
-    then(response => response.json())
+    fetch(urltoCoordinates)
+    .then(response => response.json())
     .then(coordinates=> {
       // setLat(coordinates.lat)
       // setLong(coordinates.lon)
@@ -49,11 +47,9 @@ function App() {
   {
     var urltoCoordinates = "https://api.opentripmap.com/0.1/en/places/geoname?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&name="+location;
     var lattitude=0,longitude=0;
-    fetch(urltoCoordinates).
-    then(response => response.json())
+    fetch(urltoCoordinates)
+    .then(response => response.json())
     .then(coordinates=> {
-      // setLat(coordinates.lat)
-      // setLong(coordinates.lon)
       lattitude=coordinates.lat;
       longitude=coordinates.lon;
       setLocation("")
@@ -99,9 +95,7 @@ function App() {
     </GoogleMapReact>
     </div>
     <button className="Buttonrownav"
-    ><a target="_blank" href={urltoMap}>Open in Google Maps</a></button>
-    <h5></h5>
-    <h5></h5>
+    ><a target="_blank" href={urltoMap} rel="noreferrer">Open in Google Maps</a></button>
     </div>
     </div>
 )});

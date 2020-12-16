@@ -56,7 +56,7 @@ function App() {
       lattitude=coordinates.lat;
       longitude=coordinates.lon;
       setLocation("")
-      var urlToPlaces=`https://api.opentripmap.com/0.1/en/places/radius?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&radius=10000&limit=50&offset=0&lon=${longitude}&lat=${lattitude}&rate=2&format=json` 
+      var urlToPlaces=`https://api.opentripmap.com/0.1/en/places/radius?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&radius=${radius*1000}&limit=50&offset=0&lon=${longitude}&lat=${lattitude}&rate=2&format=json` 
       fetch(urlToPlaces)
       .then(response=>response.json())
       .then(placeData=>{setPlaces(placeData);setLoadedLocation(location)})

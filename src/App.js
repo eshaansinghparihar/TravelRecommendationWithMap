@@ -6,7 +6,8 @@ import LocationPin from './LocationPin';
 
 function App() {
 
-  const [location,setLocation]=useState('')
+  const [location,setLocation]=useState('');
+  const [radius,setRadius]=useState(50);
   const [loadedLocation,setLoadedLocation]=useState('');
   const [places,setPlaces]=useState([])
   // const [error,setError]=useState("");
@@ -19,7 +20,9 @@ function App() {
   "Chennai",
   "Ahmedabad"]
     
-  
+  function radiusChangeHandler(event){
+    setRadius(event.target.value)
+  }
   function errorHandler(error)
   {
     
@@ -35,7 +38,7 @@ function App() {
       // setLong(coordinates.lon)
       lattitude=coordinates.lat;
       longitude=coordinates.lon;
-      var urlToPlaces=`https://api.opentripmap.com/0.1/en/places/radius?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&radius=10000&limit=100&offset=0&lon=${longitude}&lat=${lattitude}&rate=2&format=json` 
+      var urlToPlaces=`https://api.opentripmap.com/0.1/en/places/radius?apikey=5ae2e3f221c38a28845f05b60e7759b29878873a69598c9d75b72fbe&radius=${radius*1000}&limit=100&offset=0&lon=${longitude}&lat=${lattitude}&rate=2&format=json` 
       fetch(urlToPlaces)
       .then(response=>response.json())
       .then(placeData=>{setPlaces(placeData);setLocation(city);setLoadedLocation(city)})
@@ -119,7 +122,14 @@ function App() {
       onClick={clickHandler}
       >GO</button>
       </div>
-      <h1 className="Heading"> </h1>
+      <div class="slidecontainer">
+      <h4>Set a Range here</h4><input type="range" 
+      min="1" max="100" value={radius} class="slider"
+      onChange={radiusChangeHandler}
+      step="1"
+      />
+      <h4>{radius} Kms</h4>
+      </div>
       <div >
       {commomCity.map(city=><button className="Buttonrow"
       onClick={()=>commoncityclickHandler(city)}
